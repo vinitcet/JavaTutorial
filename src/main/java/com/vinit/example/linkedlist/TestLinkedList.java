@@ -3,10 +3,10 @@ package com.vinit.example.linkedlist;
 public class TestLinkedList {
     public static void main(String[] args) {
         LinkedList linkedList = new LinkedList();
-        ListNode ln = new ListNode(1);
-        ListNode ln2 = new ListNode(2);
-        ListNode ln3 = new ListNode(3);
-        ListNode ln4 = new ListNode(4);
+        Node ln = new Node(1);
+        Node ln2 = new Node(2);
+        Node ln3 = new Node(3);
+        Node ln4 = new Node(4);
         linkedList.head = ln3;
         linkedList.insertAtBegin(ln2);
         linkedList.insertAtBegin(ln);

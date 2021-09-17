@@ -1,10 +1,10 @@
 package com.vinit.example.linkedlist;
 
-public class ListNode {
+public class Node {
     private int data;
-    private ListNode next;
+    private Node next;
 
-    public ListNode(int data) {
+    public Node(int data) {
         this.data = data;
         this.next = null;
     }
@@ -17,17 +17,17 @@ public class ListNode {
         this.data = data;
     }
 
-    public ListNode getNext() {
+    public Node getNext() {
         return next;
     }
 
-    public void setNext(ListNode next) {
+    public void setNext(Node next) {
         this.next = next;
     }
 
-    public int listLength(ListNode headNode) {
+    public int listLength(Node headNode) {
         int length = 0;
-        ListNode currentNode = headNode;
+        Node currentNode = headNode;
         while (currentNode != null) {
             length++;
             currentNode = currentNode.getNext();

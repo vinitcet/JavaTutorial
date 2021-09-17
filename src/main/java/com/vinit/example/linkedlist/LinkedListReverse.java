@@ -1,4 +1,4 @@
-package com.vinit.example.list;
+package com.vinit.example.linkedlist;
 
 import java.util.Arrays;
 import java.util.List;

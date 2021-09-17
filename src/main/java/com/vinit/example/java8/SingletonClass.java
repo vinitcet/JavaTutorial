@@ -2,7 +2,7 @@ package com.vinit.example.java8;
 
 import java.io.Serializable;
 
-public class SingletonClass implements Serializable {
+public class SingletonClass implements Serializable, Cloneable {
 
     private static SingletonClass instance = null;
 
@@ -24,4 +24,8 @@ public class SingletonClass implements Serializable {
         return getInstance();
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return instance;
+    }
 }

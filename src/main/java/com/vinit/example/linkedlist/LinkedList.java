@@ -1,28 +1,32 @@
 package com.vinit.example.linkedlist;
 
 public class LinkedList {
-    ListNode head;
+    Node head;
     private int length;
 
     public LinkedList() {
         length = 0;
     }
 
-    public ListNode getHead() {
+    public Node getHead() {
         return head;
     }
 
-    public synchronized void insertAtBegin(ListNode node) {
-        node.setNext(head);
-        head = node;
-        length++;
-    }
-
-    public synchronized void insertAtEnd(ListNode node) {
+    public synchronized void insertAtBegin(Node node) {
         if (head == null) {
             head = node;
         } else {
-            ListNode last = head;
+            node.setNext(head);
+            head = node;
+        }
+        length++;
+    }
+
+    public synchronized void insertAtEnd(Node node) {
+        if (head == null) {
+            head = node;
+        } else {
+            Node last = head;
             while (last.getNext() != null) {
                 last = last.getNext();
             }
@@ -38,13 +42,13 @@ public class LinkedList {
             postion = length;
         }
         if (head == null) {
-            head = new ListNode(data);
+            head = new Node(data);
         } else {
-            ListNode temp = head;
+            Node temp = head;
             for (int i = 0; i < postion; i++) {
                 temp = temp.getNext();
             }
-            ListNode newNode = new ListNode(data);
+            Node newNode = new Node(data);
             newNode.setNext(temp.getNext());
             temp.setNext(newNode);
             System.out.println(head.getData());
@@ -52,8 +56,8 @@ public class LinkedList {
         }
     }
 
-    public ListNode removeFromBeginnig(LinkedList ls) {
-        ListNode currentHead = ls.head;
+    public Node removeFromBeginnig(LinkedList ls) {
+        Node currentHead = ls.head;
         if (currentHead != null) {
             head = currentHead.getNext();
             currentHead.setNext(null);
@@ -61,7 +65,7 @@ public class LinkedList {
         return currentHead;
     }
 
-    public synchronized ListNode removeFromEnd(){
+    public synchronized Node removeFromEnd() {
         return null;
     }
 

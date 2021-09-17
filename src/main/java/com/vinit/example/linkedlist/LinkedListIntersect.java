@@ -1,4 +1,4 @@
-package com.vinit.example.java8;
+package com.vinit.example.linkedlist;
 
 import java.util.HashSet;
 
