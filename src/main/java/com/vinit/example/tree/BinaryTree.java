@@ -11,6 +11,10 @@ class Node {
 
 }
 
+class Distance {
+    int minDistance = Integer.MAX_VALUE;
+}
+
 public class BinaryTree {
 
     Node root;
@@ -62,6 +66,7 @@ public class BinaryTree {
             return rheight + 1;
         }
     }
+
 
     void inOrderTraversal() {
         inOrderTraversal(root);
@@ -133,6 +138,175 @@ public class BinaryTree {
         return 0;
     }
 
+    void leftView() {
+        leftViewUtil(root, 1);
+    }
+
+    static int max_level = 0;
+
+    public void leftViewUtil(Node node, int level) {
+        if (node == null) {
+            return;
+        }
+        if (max_level < level) {
+            System.out.print(" " + node.key);
+            max_level = level;
+        }
+        leftViewUtil(node.left, level + 1);
+        leftViewUtil(node.right, level + 1);
+    }
+
+    boolean isBalanced(Node node) {
+        if (node == null) {
+            return true;
+        }
+        int lh = height(node.left);
+        int rh = height(node.right);
+        if (Math.abs(lh - rh) <= 1 && isBalanced(node.left) && isBalanced(node.right)) {
+            return true;
+        }
+        return false;
+    }
+
+    int height(Node n) {
+        if (n == null) {
+            return 0;
+        }
+        return 1 + Math.max(height(n.left), height(n.right));
+    }
+
+    void printZigZagTree() {
+        printZigZagTree(root);
+    }
+
+    void printZigZagTree(Node node) {
+        if (node == null) {
+            return;
+        }
+        boolean right = true;
+        int heightOfTree = height(node);
+        for (int i = 1; i <= heightOfTree; i++) {
+            if (i % 2 == 0) {
+                right = true;
+            } else {
+                right = false;
+            }
+            printLevel(node, i, right);
+        }
+    }
+
+    public void printLevel(Node node, int level, boolean right) {
+        if (node == null) {
+            return;
+        }
+        if (level == 1) {
+            System.out.print(node.key + " -> ");
+            return;
+        }
+        if (!right) {
+            printLevel(node.left, level - 1, right);
+            printLevel(node.right, level - 1, right);
+        } else {
+            printLevel(node.right, level - 1, right);
+            printLevel(node.left, level - 1, right);
+        }
+    }
+
+    // This function finds closest leaf to root.  This distance
+    // is sto+`red at *minDist.
+    public void findLeafDown(Node root, int level, Distance minDistance) {
+        if (root == null) {
+            return;
+        }
+        // If this is a leaf node, then check if it is closer
+        // than the closest so far
+        if (root.left == null && root.right == null) {
+            if (level < minDistance.minDistance) {
+                minDistance.minDistance = level;
+                return;
+            }
+        }
+        // Recur for left and right subtrees
+        findLeafDown(root.left, level + 1, minDistance);
+        findLeafDown(root.right, level + 1, minDistance);
+    }
+
+    public int findThroughRoot(Node root, Node node, Distance minDistance) {
+        if (root == null) {
+            return -1;
+        }
+        if (root == node) {
+            return 0;
+        }
+        // Search x in left subtree of root
+        int l = findThroughRoot(root.left, node, minDistance);
+        // If left subtree has x
+        if (l == -1) {
+            // Find closest leaf in right subtree
+            findLeafDown(root.right, l + 2, minDistance);
+            return l + 1;
+        }
+        // Search x in right subtree of root
+        int r = findThroughRoot(node.right, node, minDistance);
+        // If right subtree has x
+        if (r == -1) {
+            // Find closest leaf in left subtree
+            findLeafDown(root.left, r + 2, minDistance);
+            return r + 1;
+        }
+        return -1;
+    }
+
+    int minimumDistance(Node root, Node node) {
+        Distance d = new Distance();
+        findLeafDown(node, 0, d);
+        findThroughRoot(root, node, d);
+        return d.minDistance;
+
+    }
+
+    void mirror() {
+        mirror(root);
+    }
+
+    Node mirror(Node node) {
+        if (node == null) {
+            return node;
+        }
+        Node left = mirror(node.left);
+        Node right = mirror(node.right);
+        //swap
+        node.left = right;
+        node.right = left;
+        return node;
+    }
+    // returns true if trees
+    //  with roots as root1 and root2are mirror
+    boolean isMirror(Node node1, Node node2)
+    {
+        // if both trees are empty,
+        //  then they are mirror image
+        if (node1 == null && node2 == null)
+            return true;
+
+        // For two trees to be mirror images, the following
+        // three conditions must be true 1 - Their root
+        // node's key must be same 2 - left subtree of left
+        // tree and right subtree
+        //      of right tree have to be mirror images
+        // 3 - right subtree of left tree and left subtree
+        //      of right tree have to be mirror images
+        if (node1 != null && node2 != null
+                && node1.key == node2.key)
+            return (isMirror(node1.left, node2.right)
+                    && isMirror(node1.right, node2.left));
+
+        // if none of the above conditions is true then
+        // root1 and root2 are not mirror images
+        return false;
+    }
+
+
     /*              1
                 2       3
             4       5
@@ -147,12 +321,18 @@ public class BinaryTree {
 
         tree.inOrderTraversal();
         System.out.println();
-        tree.preOrderTraversal();
+        /*tree.preOrderTraversal();
         System.out.println();
         tree.postOrderTraversal();
         System.out.println();
         tree.printLevelOrder();
+        System.out.println();
         tree.printLeft();
+        System.out.println("Left view:");
+        tree.leftView();
+        System.out.println();
+        tree.printZigZagTree();*/
+        tree.mirror();
+        tree.inOrderTraversal();
     }
-
 }

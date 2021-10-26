@@ -35,6 +35,10 @@ public class Islands {
     }
 
     public List<String> updateVisited(int[][] a, int row, int column, List<String> visited) {
+        //adjacent locations
+        //-1,-1   -1,0   -1,1
+        //0,-1     0,0   0,1
+        //1,-1     1,0    1,1
         int[] x = {-1, -1, -1, 0, 0, 1, 1, 1};
         int[] y = {-1, 0, 1, -1, 1, -1, 0, 1};
         for (int j = 0; j < 8; j++) {

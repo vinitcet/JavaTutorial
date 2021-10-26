@@ -1,6 +1,4 @@
-package com.vinit.example.model;
-
-import org.springframework.expression.EvaluationException;
+package com.vinit.example.mymap;
 
 import java.util.ArrayList;
 

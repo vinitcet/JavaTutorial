@@ -6,6 +6,7 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] testArray = {9, 18, 33, -7, 88, 21, 44, 66, 7};
+        //Arrays.sort(testArray);
         Arrays.stream(testArray).forEach(System.out::println);
         System.out.println("*********SORTED ARRAY **********");
         sort(testArray,0,testArray.length-1);
