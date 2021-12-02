@@ -16,8 +16,6 @@ public class BinaryTree {
             root.left = addRecursive(root.left, data);
         } else if (data > root.data) {
             root.right = addRecursive(root.right, data);
-        } else {
-            return root;
         }
         return root;
     }

@@ -1,5 +1,7 @@
 package com.vinit.example.tree;
 
+import java.util.*;
+
 class Node {
     int key;
     Node left, right;
@@ -213,7 +215,7 @@ public class BinaryTree {
     }
 
     // This function finds closest leaf to root.  This distance
-    // is sto+`red at *minDist.
+    // is stored at *minDist.
     public void findLeafDown(Node root, int level, Distance minDistance) {
         if (root == null) {
             return;
@@ -280,10 +282,10 @@ public class BinaryTree {
         node.right = left;
         return node;
     }
+
     // returns true if trees
     //  with roots as root1 and root2are mirror
-    boolean isMirror(Node node1, Node node2)
-    {
+    boolean isMirror(Node node1, Node node2) {
         // if both trees are empty,
         //  then they are mirror image
         if (node1 == null && node2 == null)
@@ -300,24 +302,118 @@ public class BinaryTree {
                 && node1.key == node2.key)
             return (isMirror(node1.left, node2.right)
                     && isMirror(node1.right, node2.left));
-
         // if none of the above conditions is true then
         // root1 and root2 are not mirror images
         return false;
     }
 
+    Node prev;
 
-    /*              1
-                2       3
-            4       5
+    boolean isBST() {
+        prev = null;
+        return isBST(root);
+    }
+
+    /* Returns true if given search tree is binary
+       search tree (efficient version) */
+    boolean isBST(Node node) {
+        // traverse the tree in inorder fashion and
+        // keep a track of previous node
+        if (node != null) {
+            if (!isBST(node.left))
+                return false;
+
+            // allows only distinct values node
+            if (prev != null && node.key <= prev.key)
+                return false;
+            prev = node;
+            return isBST(node.right);
+        }
+        return true;
+    }
+
+    void longestBranch() {
+        System.out.println();
+        longestPath(root).forEach(System.out::println);
+    }
+
+    public ArrayList<Integer> longestPath(Node node) {
+        if (node == null) {
+            ArrayList<Integer> output = new ArrayList<>();
+            return output;
+        }
+        ArrayList<Integer> right = longestPath(node.right);
+        ArrayList<Integer> left = longestPath(node.left);
+        if (left.size() > right.size()) {
+            left.add(node.key);
+        } else {
+            right.add(node.key);
+        }
+        return (left.size() >
+                right.size() ? left : right);
+    }
+
+    // Utility function to store vertical order in map 'm'
+    // 'hd' is horizontal distance of current node from root.
+    // 'hd' is initially passed as 0
+    void getVerticalOrder(Node root, int hd,
+                                 TreeMap<Integer,Vector<Integer>> m)
+    {
+        // Base case
+        if(root == null)
+            return;
+
+        //get the vector list at 'hd'
+        Vector<Integer> get =  m.get(hd);
+
+        // Store current node in map 'm'
+        if(get == null)
+        {
+            get = new Vector<>();
+            get.add(root.key);
+        }
+        else
+            get.add(root.key);
+
+        m.put(hd, get);
+
+        // Store nodes in left subtree
+        getVerticalOrder(root.left, hd-1, m);
+
+        // Store nodes in right subtree
+        getVerticalOrder(root.right, hd+1, m);
+    }
+
+    // The main function to print vertical order of a binary tree
+    // with the given root
+    void printVerticalOrder()
+    {
+        // Create a map and store vertical order in map using
+        // function getVerticalOrder()
+        TreeMap<Integer,Vector<Integer>> m = new TreeMap<>();
+        int hd =0;
+        getVerticalOrder(root,hd,m);
+
+        // Traverse the map and print nodes at every horizontal
+        // distance (hd)
+        for (Map.Entry<Integer, Vector<Integer>> entry : m.entrySet())
+        {
+            System.out.println(entry.getValue());
+        }
+    }
+
+    /*              3
+                2       8
+            1          5
         */
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
-        tree.root = new Node(1);
+        tree.root = new Node(3);
         tree.root.left = new Node(2);
-        tree.root.right = new Node(3);
-        tree.root.left.left = new Node(4);
-        tree.root.left.right = new Node(5);
+        tree.root.right = new Node(8);
+        tree.root.left.left = new Node(1);
+        tree.root.left.left.left = new Node(0);
+        tree.root.right.left = new Node(5);
 
         tree.inOrderTraversal();
         System.out.println();
@@ -332,7 +428,9 @@ public class BinaryTree {
         tree.leftView();
         System.out.println();
         tree.printZigZagTree();*/
-        tree.mirror();
-        tree.inOrderTraversal();
+        //tree.mirror();
+        //tree.inOrderTraversal();
+        //tree.longestBranch();
+        tree.printVerticalOrder();
     }
 }

@@ -24,7 +24,9 @@ public class Test {
         Student s4 = new Student(4, "Lalit", "DayScholar");
         Student s5 = new Student(5, "Prakrit", "Regular");
 
-
+        HashSet<String> se= new HashSet();
+        HashSet<String> ss= new HashSet();
+se.retainAll(ss);
         List<Student> slist = new ArrayList<>();
         slist.add(s1);
         slist.add(s2);

@@ -1,6 +1,8 @@
 package com.vinit.example.model;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 public class Test {
@@ -28,7 +30,29 @@ public class Test {
         System.out.println(as);
         System.out.println(as.get("a"));
 
+        System.out.println("**************8888");
+        Map<Employee, Integer> mymap= new HashMap<>();
+        Employee ee = new Employee();
+        ee.setFirstName("Vinit");
+        mymap.put(ee,1);
+        mymap.entrySet().forEach(entry -> {
+            System.out.println(entry.getKey().getFirstName() + " " + entry.getValue());
+        });
+        ee.setFirstName("Amit");
+        mymap.entrySet().forEach(entry -> {
+            System.out.println(entry.getKey().getFirstName() + " " + entry.getValue());
+        });
+        ee.setFirstName("aasdf");
+        mymap.entrySet().forEach(entry -> {
+            System.out.println(entry.getKey().getFirstName() + " " + entry.getValue());
+        });
+        ee=null;
+        System.gc();
+        mymap.entrySet().forEach(entry -> {
+            System.out.println(entry.getKey().getFirstName() + " " + entry.getValue());
+        });
 
+int i=32;
 
     }
 }

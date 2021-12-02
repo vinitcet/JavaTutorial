@@ -21,7 +21,7 @@ public class StockBuySell {
             }
             Trans trans = new Trans();
             trans.buy = i++;
-            while (i < count && price[i -1] <= price[i]) {
+            while (i < count && price[i - 1] <= price[i]) {
                 i++;
             }
             trans.sell = i - 1;
@@ -39,7 +39,8 @@ public class StockBuySell {
 
     public static void main(String[] args) {
         StockBuySell stock = new StockBuySell();
-        int price[] = {100, 180, 260, 310, 40, 535, 695};
+        //int price[] = {100, 180, 260, 310, 40, 535, 695};
+        int price[] = {7, 1, 5, 3, 6, 4};
         int n = price.length;
         // System.out.println();
         // fucntion call
