@@ -17,6 +17,10 @@ import static java.util.function.Function.identity;
 public class Test {
     public static void main(String[] args) {
         System.out.println("Kaise Ho Bhai");
+        Set s111= new HashSet();
+        Set s2222= new HashSet();
+        s111.retainAll(s2222);
+
 
         Student s1 = new Student(1, "Vinit", "Regular");
         Student s2 = new Student(2, "Amit", "Regular");

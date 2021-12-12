@@ -156,6 +156,33 @@ public class LinkedListLoop {
             System.out.print(head.data);
     }
 
+    /* Function to get the nth node from the last of a
+       linked list */
+    void printNthFromLast(int n)
+    {
+        int len = 0;
+        Node temp = head;
+
+        // 1) count the number of nodes in Linked List
+        while (temp != null) {
+            temp = temp.next;
+            len++;
+        }
+
+        // check if value of n is not more than length of
+        // the linked list
+        if (len < n)
+            return;
+
+        temp = head;
+
+        // 2) get the (len-n+1)th node from the beginning
+        for (int i = 1; i < len - n + 1; i++)
+            temp = temp.next;
+
+        System.out.println(temp.data);
+    }
+
     public static void main(String[] args) {
         List<Integer> dataList = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
         LinkedListLoop ls = new LinkedListLoop();
