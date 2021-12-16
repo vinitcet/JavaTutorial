@@ -1,5 +1,8 @@
 package com.vinit.example.threading;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 public class FirstThread {
     public static void main(String[] args) {
         Thread thread = new Thread() {
@@ -31,5 +34,6 @@ public class FirstThread {
         new Thread(r).start();
         new Thread(r2).start();
         System.out.println(Thread.currentThread().getName());
+        Executor executor = Executors.newWorkStealingPool();
     }
 }

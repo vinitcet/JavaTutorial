@@ -29,7 +29,13 @@ public class MergeSortedLinkedList {
         System.out.print(" X ");
         ListNode l4 = new ListNode(1);
         l4.next = new ListNode(2);
+        System.out.println();
         removeNthFromEnd(l4, 2);
+        ListNode rev = reverseList(l1);
+        while (rev.next != null) {
+            System.out.print(rev.val + " -> ");
+            rev = rev.next;
+        }
     }
 
 
@@ -83,7 +89,7 @@ public class MergeSortedLinkedList {
             return head;
         } else if (len == n && n == 1) {
             return null;
-        }else if(len ==n){
+        } else if (len == n) {
             return head.next;
         }
 
@@ -103,6 +109,24 @@ public class MergeSortedLinkedList {
 
         return head;
     }
+
+    public static ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode cur = head;
+        ListNode prev = null;
+        ListNode next = null;
+        while (cur != null) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        head = prev;
+        return prev;
+    }
+
 }
 
 class ListNode {
