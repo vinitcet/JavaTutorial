@@ -1,3 +1,4 @@
+/*
 package com.vinit.example.google;
 
 import javafx.util.Pair;
@@ -70,7 +71,7 @@ public class WordLadder {
         return 0;
     }
 
-    public static int ladderLength2(String beginWord, String endWordWord, List<String> wordList) {
+    public static int ladderLength2(String beginWord, String endWord, List<String> dict) {
         // write your code here
         if (beginWord.equals(endWord)) {
             return 1;
@@ -123,3 +124,4 @@ public class WordLadder {
         return next;
     }
 }
+*/
