@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.IntStream;
 
-public class Wordladder {
+public class
+
+Wordladder {
     public static void main(String[] args) {
         List<String> D = new ArrayList<String>();
         D.add("poon");
