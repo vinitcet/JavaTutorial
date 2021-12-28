@@ -1,6 +1,7 @@
 package com.vinit.example.list;
 
-public class LinkedList {
+public class
+LinkedList {
     Node head;
 
     void printMiddle() {
@@ -50,3 +51,4 @@ public class LinkedList {
         }
     }
 }
+

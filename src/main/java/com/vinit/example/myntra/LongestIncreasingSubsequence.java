@@ -27,19 +27,19 @@ public class LongestIncreasingSubsequence {
     }
 
     public static int lengthOfLIS(int[] nums) {
-        int longest = 0;
-        for (int i = 0; i < nums.length; i++) {
-            int asd = 1;
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i++] < nums[j]) {
-                    asd++;
-                } else {
-                    longest = Math.max(asd, longest);
-                    i = j;
+        int sz = nums.length;
+        int[] dp = new int[sz];
+        int ans = 1;
+        dp[0] = 1;
+        for (int i = 1; i < sz; i++) {
+            dp[i] = 0;
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[j] + 1, dp[i]);
                 }
-
+                ans = Math.max(ans, dp[i]);
             }
         }
-        return longest;
+        return ans;
     }
 }

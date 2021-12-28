@@ -27,10 +27,12 @@ public class CombinationSumDistinct {
                 candidates[++index] = candidates[i];
             }
         }
+
         int[] candidatesNew = new int[index + 1];
         for (int i = 0; i < index + 1; i++) {
             candidatesNew[i] = candidates[i];
         }
+        Arrays.stream(candidatesNew).forEach(System.out::print);
         return candidatesNew;
     }
 

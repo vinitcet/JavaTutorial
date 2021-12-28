@@ -1,5 +1,7 @@
 package com.vinit.example.list;
 
+import com.vinit.example.amazon.LinkedList;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -67,7 +69,6 @@ public class LinkedListLoop {
         }
         return false;
     }
-
     public void removeLoop() {
         if (head == null) {
 
@@ -144,6 +145,29 @@ public class LinkedListLoop {
         }
         node = prev;
         return node;
+    }
+    Node reverseBunch(Node head, int size) {
+        if (head == null) {
+            return null;
+        }
+        int count = 0;
+
+        Node prev = null;
+        Node curr = head;
+        Node next = null;
+
+        while (count < size && curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            count++;
+        }
+        if (next != null) {
+            head.next = reverseBunch(next, size);
+        }
+        return prev;
+
     }
 
     static int i = 0;
