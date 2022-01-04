@@ -8,6 +8,8 @@ import java.util.List;
 public class UniqueBinarySearchTrees {
     public static void main(String[] args) {
         System.out.println(numTrees(19));
+        List<TreeNode> ls = generateTrees(4);
+
     }
 
     public static int numTrees(int n) {
@@ -23,11 +25,11 @@ public class UniqueBinarySearchTrees {
         return count[n];
     }
 
-    public List<TreeNode> generateTrees(int n) {
+    public static List<TreeNode> generateTrees(int n) {
         return helper(1, n);
     }
 
-    public List<TreeNode> helper(int start, int end) {
+    public static List<TreeNode> helper(int start, int end) {
         List<TreeNode> result = new ArrayList<>();
         if (start > end) {
             result.add(null);

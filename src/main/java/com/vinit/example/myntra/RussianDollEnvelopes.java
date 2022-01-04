@@ -8,8 +8,11 @@ import java.util.Comparator;
 
 public class RussianDollEnvelopes {
     public static void main(String[] args) {
-        int[][] envelopes = {{5, 4}, {6, 4}, {6, 7}, {2, 3},{3,8}};
-        System.out.println(maxEnvelopes(envelopes));
+        int[][] envelopes = {{5, 4}, {6, 4}, {6, 7}, {2, 3}, {3, 8}};
+        int[][] envelopes2 = {{46, 89}, {50, 53}, {52, 68}, {72, 45}, {77, 81}};
+        int[][] envelopes3 = {{4, 5}, {4, 6}, {6, 7}, {2, 3}, {1, 1}};
+        System.out.println(maxEnvelopes(envelopes3));
+        System.out.println(maxEnvelopesTry(envelopes3));
     }
 
     public static int maxEnvelopes(int[][] envelopes) {
@@ -45,5 +48,36 @@ public class RussianDollEnvelopes {
             }
         }
         return len;
+    }
+
+    public static int maxEnvelopesTry(int[][] envelopes) {
+        Arrays.sort(envelopes, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                if (o1[0] == o2[0]) {
+                    return o2[1] - o1[1];
+                } else {
+                    return o1[0] - o2[0];
+                }
+            }
+        });
+        Arrays.stream(envelopes).forEach(s -> {
+                    Arrays.stream(s).forEach(System.out::print);
+                    System.out.println();
+                }
+        );
+        int max = 1;
+        int dp[] = new int[envelopes.length + 2];
+        dp[0] = 1;
+        for (int i = 1; i < envelopes.length; i++) {
+            dp[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (envelopes[i][1] > envelopes[j][1]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            max = Math.max(dp[i], max);
+        }
+        return max;
     }
 }

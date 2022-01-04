@@ -1,6 +1,9 @@
 package com.vinit.example.tree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Vector;
 
 class Node {
     int key;
@@ -214,6 +217,14 @@ public class BinaryTree {
         }
     }
 
+    int minimumDistance(Node root, Node node) {
+        Distance d = new Distance();
+        findLeafDown(node, 0, d);
+        findThroughRoot(root, node, d);
+        return d.minDistance;
+
+    }
+
     // This function finds closest leaf to root.  This distance
     // is stored at *minDist.
     public void findLeafDown(Node root, int level, Distance minDistance) {
@@ -257,14 +268,6 @@ public class BinaryTree {
             return r + 1;
         }
         return -1;
-    }
-
-    int minimumDistance(Node root, Node node) {
-        Distance d = new Distance();
-        findLeafDown(node, 0, d);
-        findThroughRoot(root, node, d);
-        return d.minDistance;
-
     }
 
     void mirror() {
@@ -346,66 +349,60 @@ public class BinaryTree {
         ArrayList<Integer> left = longestPath(node.left);
         if (left.size() > right.size()) {
             left.add(node.key);
+            return left;
         } else {
             right.add(node.key);
+            return right;
         }
-        return (left.size() >
-                right.size() ? left : right);
+    }
+
+    // The main function to print vertical order of a binary tree
+    // with the given root
+    void printVerticalOrder() {
+        // Create a map and store vertical order in map using
+        // function getVerticalOrder()
+        TreeMap<Integer, Vector<Integer>> m = new TreeMap<>();
+        int hd = 0;
+        getVerticalOrder(root, hd, m);
+
+        // Traverse the map and print nodes at every horizontal
+        // distance (hd)
+        for (Map.Entry<Integer, Vector<Integer>> entry : m.entrySet()) {
+            System.out.println(entry.getValue());
+        }
     }
 
     // Utility function to store vertical order in map 'm'
     // 'hd' is horizontal distance of current node from root.
     // 'hd' is initially passed as 0
     void getVerticalOrder(Node root, int hd,
-                                 TreeMap<Integer,Vector<Integer>> m)
-    {
+                          TreeMap<Integer, Vector<Integer>> m) {
         // Base case
-        if(root == null)
+        if (root == null)
             return;
 
         //get the vector list at 'hd'
-        Vector<Integer> get =  m.get(hd);
+        Vector<Integer> get = m.get(hd);
 
         // Store current node in map 'm'
-        if(get == null)
-        {
+        if (get == null) {
             get = new Vector<>();
             get.add(root.key);
-        }
-        else
+        } else
             get.add(root.key);
 
         m.put(hd, get);
 
         // Store nodes in left subtree
-        getVerticalOrder(root.left, hd-1, m);
+        getVerticalOrder(root.left, hd - 1, m);
 
         // Store nodes in right subtree
-        getVerticalOrder(root.right, hd+1, m);
-    }
-
-    // The main function to print vertical order of a binary tree
-    // with the given root
-    void printVerticalOrder()
-    {
-        // Create a map and store vertical order in map using
-        // function getVerticalOrder()
-        TreeMap<Integer,Vector<Integer>> m = new TreeMap<>();
-        int hd =0;
-        getVerticalOrder(root,hd,m);
-
-        // Traverse the map and print nodes at every horizontal
-        // distance (hd)
-        for (Map.Entry<Integer, Vector<Integer>> entry : m.entrySet())
-        {
-            System.out.println(entry.getValue());
-        }
+        getVerticalOrder(root.right, hd + 1, m);
     }
 
     /* Function to find LCA of n1 and n2. The function assumes that both
       n1 and n2 are present in BST */
-    Node lca(Node node, int n1, int n2)
-    {
+    Node lca(Node node, int n1, int n2) {
         if (node == null)
             return null;
 
@@ -423,8 +420,7 @@ public class BinaryTree {
     // This function returns pointer to LCA of two given
     // values n1 and n2. This function assumes that n1 and
     // n2 are present in Binary Tree
-    public static Node findLCA(Node node, int n1, int n2)
-    {
+    public static Node findLCA(Node node, int n1, int n2) {
         // Base case
         if (node == null)
             return null;
@@ -442,12 +438,13 @@ public class BinaryTree {
         // If both of the above calls return Non-NULL, then one key
         // is present in once subtree and other is present in other,
         // So this node is the LCA
-        if (left_lca!=null && right_lca!=null)
+        if (left_lca != null && right_lca != null)
             return node;
 
         // Otherwise check if left subtree or right subtree is LCA
         return (left_lca != null) ? left_lca : right_lca;
     }
+
     /*              3
                 2       8
             1          5

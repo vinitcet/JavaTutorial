@@ -1,9 +1,6 @@
 package com.vinit.example.tree;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LeetTree {
     public static void main(String[] args) {
@@ -16,7 +13,11 @@ public class LeetTree {
         tr.left.left.left = new TreeNode(6);
         tr.left.left.left.right = new TreeNode(7);
         print(tr);
-        findDuplicates(tr);
+        verticalTraversal(tr).stream().forEach(s -> {
+            s.stream().forEach(System.out::println);
+            System.out.println();
+        });
+        //findDuplicates(tr);
         //System.out.println(findSecondMinimumValue(tr));
         //findSecondMinimumValueMine(tr);
         //rightSideView(tr).forEach(System.out::println);
@@ -175,6 +176,31 @@ public class LeetTree {
             return isValidBST(root.right);
         }
         return true;
+    }
+
+    public static List<List<Integer>> verticalTraversal(TreeNode root) {
+        Map<Integer, List<Integer>> omap = new TreeMap<>();
+        omap = verticalTraversal(root, 0, omap);
+        List<List<Integer>> olist = new ArrayList<>();
+        for (Map.Entry<Integer, List<Integer>> entry : omap.entrySet()) {
+            olist.add(entry.getValue());
+        }
+        return  olist;
+    }
+
+    public static Map<Integer, List<Integer>> verticalTraversal(TreeNode root, int level, Map<Integer, List<Integer>> omap) {
+        if (root == null) {
+            return new TreeMap<>();
+        }
+        List<Integer> ilist = omap.get(level);
+        if (ilist == null) {
+            ilist = new ArrayList<>();
+        }
+        ilist.add(root.val);
+        omap.put(level, ilist);
+        verticalTraversal(root.left, level - 1, omap);
+        verticalTraversal(root.right, level + 1, omap);
+        return omap;
     }
 }
 

@@ -9,8 +9,8 @@ public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
         int[] nums = {10, 9, 2, 5, 3, 7, 101, 18, 19, 20, 21, 22};
         int[] nums2 = {0, 1, 0, 3, 2, 3};
-        System.out.println(lengthOfLIS(nums2));
-        System.out.println(lengthOfLIStheir(nums2));
+        System.out.println(lengthOfLIS(nums));
+        System.out.println(lengthOfLIStheir(nums));
     }
 
 
@@ -27,19 +27,19 @@ public class LongestIncreasingSubsequence {
     }
 
     public static int lengthOfLIS(int[] nums) {
-        int sz = nums.length;
-        int[] dp = new int[sz];
-        int ans = 1;
+        int count = nums.length;
+        int dp[] = new int[count + 2];
+        int max = 1;
         dp[0] = 1;
-        for (int i = 1; i < sz; i++) {
-            dp[i] = 0;
+        for (int i = 1; i < count; i++) {
+            dp[i] = 1;
             for (int j = 0; j < i; j++) {
                 if (nums[i] > nums[j]) {
-                    dp[i] = Math.max(dp[j] + 1, dp[i]);
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
-                ans = Math.max(ans, dp[i]);
             }
+            max = Math.max(max, dp[i]);
         }
-        return ans;
+        return max;
     }
 }

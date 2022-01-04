@@ -1,4 +1,5 @@
 package com.vinit.example.goldman;
+
 /*CoderPad*/
 public class MaxWater {
     static int getMax(int[] a, int size) {
@@ -26,11 +27,11 @@ public class MaxWater {
                 1, 3, 2, 1, 2, 1};
         int n = arr.length;
 
-        System.out.print(getMax(arr, n));
+        System.out.println(getMax(arr, n));
+        System.out.println(findWater(arr));
     }
 
-    static int findWater(int arr[], int n)
-    {
+    static int findWater(int arr[], int n) {
         // initialize output
         int result = 0;
         // maximum element on left and right
@@ -47,8 +48,7 @@ public class MaxWater {
                     // max - curr
                     result += left_max - arr[lo];
                 lo++;
-            }
-            else {
+            } else {
                 if (arr[hi] > right_max)
 
                     // update right maximum
@@ -61,5 +61,27 @@ public class MaxWater {
         }
 
         return result;
+    }
+
+    static int findWater(int arr[]) {
+        if(arr.length<3){
+            return 0;
+        }
+        int size = arr.length;
+        int left[] = new int[size];
+        left[0] = arr[0];
+        int right[] = new int[size];
+        right[size - 1] = arr[size - 1];
+        int ans = 0;
+        for (int i = 1; i < size - 1; i++) {
+            left[i] = Math.max(left[i - 1], arr[i]);
+        }
+        for (int i = size - 2; i > 0; i--) {
+            right[i] = Math.max(arr[i], right[i + 1]);
+        }
+        for (int i = 1; i < size - 1; i++) {
+            ans += Math.min(left[i], right[i]) - arr[i];
+        }
+        return ans;
     }
 }
