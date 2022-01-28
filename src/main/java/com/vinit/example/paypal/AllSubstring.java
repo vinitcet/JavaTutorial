@@ -66,4 +66,24 @@ public class AllSubstring {
 
     }
 
+    public int stringCount2(String str) {
+        char[] c = str.toCharArray();
+        int count = 0;
+        int sum = 0;
+        for (int i = 0; i < c.length; i++) {
+
+            if (c[i] == '1') {
+                count++;
+            } else {
+
+                sum += count * (count + 1) / 2;
+                count = 0;
+            }
+        }
+        if (count > 0) {
+            sum += count * (count + 1) / 2;
+        }
+        return sum;
+    }
+
 }

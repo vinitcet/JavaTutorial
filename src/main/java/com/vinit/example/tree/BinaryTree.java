@@ -445,6 +445,49 @@ public class BinaryTree {
         return (left_lca != null) ? left_lca : right_lca;
     }
 
+     /*
+     Given a tree and a sum, return true if there is a path from the root down to a leaf,
+     such that adding up all the values along the path equals the given sum.
+
+     Strategy: subtract the node value from the sum when
+     recurring down, and check to see if the sum is 0 you reach the leaf node.
+     */
+
+    boolean hasPathSum(Node node, int sum) {
+        if (node == null) {
+            return false;
+        }
+        boolean ans = false;
+        int subSum = sum - node.key;
+        if (subSum == 0 && node.left == null && node.right == null)
+            return (ans = true);
+        if (node.left != null)
+            // ans || hasPathSum... has no utility if the ans is false
+            ans = ans || hasPathSum(node.left, subSum);
+        if (node.right != null)
+            // But if it is true then we can avoid calling hasPathSum
+            // here as answer has already been found
+            ans = ans || hasPathSum(node.right, subSum);
+        return (ans);
+    }
+
+    /*Given the root of a binary tree, flatten the tree into a "linked list":*/
+    private TreeNode lastNode = null;
+
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten(root.right);
+        flatten(root.left);
+
+        root.right = lastNode;
+        root.left = null;
+        lastNode = root;
+
+    }
+
+
     /*              3
                 2       8
             1          5

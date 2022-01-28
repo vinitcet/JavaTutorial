@@ -1,6 +1,11 @@
 package com.vinit.example.linkedlist;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LintLinkedList {
+    private static ListNode head;
+
     public static void main(String[] args) {
         ListNode n1 = new ListNode(1);
         n1.next = new ListNode(2);
@@ -11,7 +16,25 @@ public class LintLinkedList {
         n1.next.next.next.next.next.next = new ListNode(7);
         print(n1);
         print(reverseBetween(n1, 3, 6));
+        int[] arr = {-7, 7, -4, 19, 6, -9, -5, -2, -5};
 
+        for (int i : arr) {
+            insertAtEnd(i);
+        }
+        System.out.println(detectCycle(head).val);
+
+    }
+
+    public static void insertAtEnd(int node) {
+        if (head == null) {
+            head = new ListNode(node);
+        } else {
+            ListNode last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = new ListNode(node);
+        }
     }
 
     static void print(ListNode n) {
@@ -85,8 +108,25 @@ public class LintLinkedList {
             }
         }
         prev2.next = prev;
-        start.next=cur;
+        start.next = cur;
         return head;
+    }
+
+    public static ListNode detectCycle(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        Set<Integer> ls = new HashSet<>();
+        while (head.next != null) {
+            if (ls.contains(head.val)) {
+                return head;
+            } else {
+                ls.add(head.val);
+            }
+            head = head.next;
+        }
+        return null;
     }
 }
 
