@@ -12,8 +12,12 @@ public class LongestIncreasingSubsequence {
         LongestIncreasingSubsequence ls = new LongestIncreasingSubsequence();
         //50->3->10->7->40->80
         // 3->10->2->1->20
-        int[] i = {3, 10, 2, 1, 20};
-        //int[] i = {60, 3, 10, 7, 40, 80};
+        //int[] i = {3, 10, 2, 1, 20};
+        int[] i = {60, 3, 10, 7, 40, 80};
+        // 5 -> 12 -> 18 -> 7 -> 12 -> 15 -> NULL
+        //int[] i = {5, 12, 18, 7, 12, 15};
+        // 8 -> 5 -> 7 -> 10 -> 9 -> 11 -> 12 -> 13 -> NULL
+        //int[] i = {8, 5, 7, 10, 9, 11, 12, 13};
         for (int a : i) {
             insertInEnd(a);
         }
@@ -21,6 +25,7 @@ public class LongestIncreasingSubsequence {
         printLongestSubSequence(ls.head);
         printLongestSubSequence2(ls.head);
         printLongestSubSequence3(ls.head);
+        printLongestSubSequence4(ls.head);
     }
 
     public static void insertInEnd(int data) {
@@ -101,6 +106,38 @@ public class LongestIncreasingSubsequence {
         System.out.println(maxSubSequence);
     }
 
+    public static void printLongestSubSequence4(Node head) {
+        if (head == null) {
+            return;
+        }
+        int size = 0;
+        Node node = head;
+        while (node != null) {
+            size++;
+            node = node.next;
+        }
+        node = head.next;
+        int[] dp = new int[size + 2];
+        dp[0] = 1;
+        int count = 1;
+        int result = 1;
+        while (node != null) {
+            dp[count] = 1;
+            Node newNode = head;
+            int countInner = 0;
+            while (newNode != node) {
+                if (newNode.data < node.data) {
+                    dp[count] = Math.max(dp[count], dp[countInner] + 1);
+                }
+                countInner++;
+                newNode = newNode.next;
+            }
+            result = Math.max(result, dp[count]);
+            count++;
+            node = node.next;
+        }
+        System.out.println("Dp with array: " + result);
+    }
 
     static class Node {
         int data;
