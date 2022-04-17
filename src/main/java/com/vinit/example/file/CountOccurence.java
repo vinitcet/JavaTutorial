@@ -14,9 +14,9 @@ public class CountOccurence {
         IntSummaryStatistics statistics=str.collect(Collectors.summarizingInt(Integer::intValue));
         System.out.println(statistics);
 
-        List<String> immutableList=List.of("abc");
+/*        List<String> immutableList=List.of("abc");
         Set<String> immutableSet = Set.of();
-        Map.of(); //immuateble Map
+        Map.of(); //immuateble Map*/
 
 
     }

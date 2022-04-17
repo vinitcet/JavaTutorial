@@ -174,6 +174,8 @@ public class BinaryTree {
     }
 
     int height(Node n) {
+
+
         if (n == null) {
             return 0;
         }

@@ -21,6 +21,11 @@ public class PriorityQueueExample {
             }
             System.out.println(pq);
         }
+        PriorityQueue<String> pq2 = new PriorityQueue<>(5);
+        for (Character ch : s.toCharArray()) {
+            pq2.add(String.valueOf(ch));
+        }
+        System.out.println("New Data " + pq2);
 
 
     }

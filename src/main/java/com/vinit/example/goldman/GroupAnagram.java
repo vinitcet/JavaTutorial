@@ -1,9 +1,12 @@
+/*
 package com.vinit.example.goldman;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-/*CoderPad*/
+*/
+/*CoderPad*//*
+
 public class GroupAnagram {
 
     public static void main(String[] args) {
@@ -28,3 +31,4 @@ public class GroupAnagram {
         }
     }
 }
+*/
