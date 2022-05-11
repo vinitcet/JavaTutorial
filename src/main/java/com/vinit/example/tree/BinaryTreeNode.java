@@ -16,6 +16,8 @@ public class BinaryTreeNode {
             System.out.println(root.data);
             preOrder(root.leftNode);
             preOrder(root.rightNode);
+
+
         }
     }
 
