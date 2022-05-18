@@ -229,6 +229,48 @@ public class MyLinkedList {
         return prev;
     }
 
+    public static void reverseRecursive(Node n2, Node node) {
+        if (node != null) {
+            reverseRecursive(node, node.next);
+            node.next = n2;
+        } else {
+            head = n2;
+        }
+    }
+
+    public static Node mergeSorted(Node n1, Node n2) {
+        Node third;
+        Node last;
+        if (n1.data < n2.data) {
+            third = last = n1;
+            n1 = n1.next;
+            last.next = null;
+        } else {
+            third = last = n2;
+            n2 = n2.next;
+            last.next = null;
+        }
+        while (n1 != null && n2 != null) {
+            if (n1.data < n2.data) {
+                last.next = n1;
+                last = n1;
+                n1 = n1.next;
+                last.next = null;
+            } else {
+                last.next = n2;
+                last = n2;
+                n2 = n2.next;
+                last.next = null;
+            }
+        }
+        if (n1 != null) {
+            last.next = n1;
+        } else {
+            last.next = n2;
+        }
+        return third;
+    }
+
     public static void main(String[] args) {
         Node n1 = new Node(3);
         n1.next = new Node(4);
@@ -245,24 +287,35 @@ public class MyLinkedList {
         // System.out.println( max( n1 ) );
         // System.out.println(searchRecursive(test, 3).toString());
         //System.out.println(search(n1, 3).toString());
-        n1 = insertInBegninning(n1, 2);
-        insertAtEnd(n1, 9);
-        insertAtPosition(n1, 3, 1);
-        insertAtPosition(n1, 3, 1);
-        insertAtPosition(n1, 3, 1);
-        insertAfterNode(n1, 5, 6);
-        insertAfterNode(n1, 5, 6);
-        insertBeforeSinglePointer(n1, 9, 7);
+//        n1 = insertInBegninning(n1, 2);
+//        insertAtEnd(n1, 9);
+//        insertAtPosition(n1, 3, 1);
+//        insertAtPosition(n1, 3, 1);
+//        insertAtPosition(n1, 3, 1);
+//        insertAfterNode(n1, 5, 6);
+//        insertAfterNode(n1, 5, 6);
+//        insertBeforeSinglePointer(n1, 9, 7);
         //n1 = deleteStart(n1);
-        // MyLinkedList ml = new MyLinkedList();
-        //ml.head = n1;
         //deleteFromPosition(n1, 24);
-        display(n1);
+        //display(n1);
         //System.out.println(isSorted(n1));
-        removeDuplicates(n1);
-        display(n1);
-        display(reverse(n1));
-
+//        removeDuplicates(n1);
+//        display(n1);
+//        MyLinkedList ml = new MyLinkedList();
+//        ml.head = n1;
+//        reverseRecursive(null, n1);
+//        display(ml.head);
+        Node s1 = new Node(2);
+        insertAtEnd(s1, 8);
+        insertAtEnd(s1, 10);
+        insertAtEnd(s1, 15);
+        Node s2 = new Node(5);
+        insertAtEnd(s2, 7);
+        insertAtEnd(s2, 12);
+        insertAtEnd(s2, 14);
+        display(s1);
+        display(s2);
+        display(mergeSorted(s1, s2));
     }
 
 
