@@ -239,6 +239,14 @@ public class MyLinkedList {
     }
 
     public static Node mergeSorted(Node n1, Node n2) {
+        if( n1 == null )
+        {
+            return n2;
+        }
+        if( n2 == null )
+        {
+            return n1;
+        }
         Node third;
         Node last;
         if (n1.data < n2.data) {
