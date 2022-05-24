@@ -3,37 +3,48 @@ package com.vinit.example.linkedlist;
 import java.util.HashSet;
 import java.util.Set;
 
-public class LintLinkedList {
+public class LintLinkedList
+{
     private static ListNode head;
 
-    public static void main(String[] args) {
-        ListNode n1 = new ListNode(1);
-        n1.next = new ListNode(2);
-        n1.next.next = new ListNode(3);
-        n1.next.next.next = new ListNode(4);
-        n1.next.next.next.next = new ListNode(5);
-        n1.next.next.next.next.next = new ListNode(6);
-        n1.next.next.next.next.next.next = new ListNode(7);
-        print(n1);
-        print(reverseBetween(n1, 3, 6));
-        int[] arr = {-7, 7, -4, 19, 6, -9, -5, -2, -5};
+    public static void main( String[] args )
+    {
+        ListNode n1 = new ListNode( 1 );
+        n1.next = new ListNode( 2 );
+        n1.next.next = new ListNode( 3 );
+        n1.next.next.next = new ListNode( 4 );
+        n1.next.next.next.next = new ListNode( 5 );
+        n1.next.next.next.next.next = new ListNode( 6 );
+        n1.next.next.next.next.next.next = new ListNode( 7 );
+        print( n1 );
+        //print( reverseBetween( n1, 3, 6 ) );
+        int[] arr = {1,2,2,1};
 
-        for (int i : arr) {
-            insertAtEnd(i);
+        for( int i : arr )
+        {
+            insertAtEnd( i );
         }
-        System.out.println(detectCycle(head).val);
+        // System.out.println( detectCycle( head ).val );
+        print( head );
+        head = removeElements( head, 2 );
+        print( head );
 
     }
 
-    public static void insertAtEnd(int node) {
-        if (head == null) {
-            head = new ListNode(node);
-        } else {
+    public static void insertAtEnd( int node )
+    {
+        if( head == null )
+        {
+            head = new ListNode( node );
+        }
+        else
+        {
             ListNode last = head;
-            while (last.next != null) {
+            while( last.next != null )
+            {
                 last = last.next;
             }
-            last.next = new ListNode(node);
+            last.next = new ListNode( node );
         }
     }
 
@@ -49,25 +60,29 @@ public class LintLinkedList {
         }
         return h2;
     }
-    
 
-    static void print(ListNode n) {
-        while (n != null) {
-            System.out.print(n.val + " -> ");
+    static void print( ListNode n )
+    {
+        while( n != null )
+        {
+            System.out.print( n.val + " -> " );
             n = n.next;
         }
-        System.out.println("X");
+        System.out.println( "X" );
     }
 
-    public ListNode reverseBetweentheir(ListNode head, int m, int n) {
+    public ListNode reverseBetweentheir( ListNode head, int m, int n )
+    {
         // Empty list
-        if (head == null) {
+        if( head == null )
+        {
             return null;
         }
         // Move the two pointers until they reach the proper starting point
         // in the list.
         ListNode cur = head, prev = null;
-        while (m > 1) {
+        while( m > 1 )
+        {
             prev = cur;
             cur = cur.next;
             m--;
@@ -78,7 +93,8 @@ public class LintLinkedList {
         ListNode con = prev, tail = cur;
         // Iteratively reverse the nodes until n becomes 0.
         ListNode third = null;
-        while (n > 0) {
+        while( n > 0 )
+        {
             third = cur.next;
             cur.next = prev;
             prev = cur;
@@ -86,24 +102,31 @@ public class LintLinkedList {
             n--;
         }
         // Adjust the final connections as explained in the algorithm
-        if (con != null) {
+        if( con != null )
+        {
             con.next = prev;
-        } else {
+        }
+        else
+        {
             head = prev;
         }
         tail.next = cur;
         return head;
     }
 
-    public static ListNode reverseBetween(ListNode head, int left, int right) {
-        if (head == null) {
+    public static ListNode reverseBetween( ListNode head, int left, int right )
+    {
+        if( head == null )
+        {
             return null;
         }
         ListNode start = head;
         ListNode cur = null;
         ListNode prev2 = null;
-        while (start != null) {
-            if (start.val == left) {
+        while( start != null )
+        {
+            if( start.val == left )
+            {
                 cur = start;
                 break;
             }
@@ -112,12 +135,14 @@ public class LintLinkedList {
         }
         ListNode prev = null;
         ListNode next = null;
-        while (cur != null) {
+        while( cur != null )
+        {
             next = cur.next;
             cur.next = prev;
             prev = cur;
             cur = next;
-            if (cur.val == right) {
+            if( cur.val == right )
+            {
                 break;
             }
         }
@@ -126,17 +151,57 @@ public class LintLinkedList {
         return head;
     }
 
-    public static ListNode detectCycle(ListNode head) {
-        if (head == null) {
+    public static ListNode removeElements( ListNode head, int val )
+    {
+        ListNode node = head;
+        ListNode prev = null;
+        while( node != null )
+        {
+            if( node.val == val && prev == null )
+            {
+                head = node.next;
+            }
+            else if( node.val == val )
+            {
+                prev.next = node.next;
+            }
+            else
+            {
+                prev = node;
+            }
+            node = node.next;
+        }
+        return head;
+    }
+
+    public ListNode removeElements2( ListNode head, int val )
+    {
+        if( head == null )
+            return null;
+        head.next = removeElements2( head.next, val );
+        if( head.val == val )
+            return head.next;
+        else
+            return head;
+    }
+
+    public static ListNode detectCycle( ListNode head )
+    {
+        if( head == null )
+        {
             return null;
         }
 
         Set<Integer> ls = new HashSet<>();
-        while (head.next != null) {
-            if (ls.contains(head.val)) {
+        while( head.next != null )
+        {
+            if( ls.contains( head.val ) )
+            {
                 return head;
-            } else {
-                ls.add(head.val);
+            }
+            else
+            {
+                ls.add( head.val );
             }
             head = head.next;
         }
@@ -144,19 +209,25 @@ public class LintLinkedList {
     }
 }
 
-class ListNode {
+class ListNode
+{
     int val;
     ListNode next;
 
-    ListNode() {
+    ListNode()
+    {
     }
 
-    ListNode(int val) {
+    ListNode( int val )
+    {
         this.val = val;
     }
 
-    ListNode(int val, ListNode next) {
+    ListNode( int val, ListNode next )
+    {
         this.val = val;
         this.next = next;
     }
+
+
 }
