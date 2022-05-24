@@ -37,6 +37,20 @@ public class LintLinkedList {
         }
     }
 
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode h1 = headA;
+        ListNode h2 = headB;
+        while (h1 != h2) {
+            h1 =  (h1 != null) ? h1.next : headB;
+            h2 =  (h2 != null) ? h2.next : headA;
+        }
+        return h2;
+    }
+    
+
     static void print(ListNode n) {
         while (n != null) {
             System.out.print(n.val + " -> ");
